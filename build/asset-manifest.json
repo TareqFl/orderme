@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/orderme/static/css/main.98ec47ca.css",
+    "main.js": "/orderme/static/js/main.6934d511.js",
+    "static/media/logo.webp": "/orderme/static/media/logo.8a7b9adc247653bdfcee.webp",
+    "index.html": "/orderme/index.html",
+    "main.98ec47ca.css.map": "/orderme/static/css/main.98ec47ca.css.map",
+    "main.6934d511.js.map": "/orderme/static/js/main.6934d511.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.98ec47ca.css",
+    "static/js/main.6934d511.js"
+  ]
+}

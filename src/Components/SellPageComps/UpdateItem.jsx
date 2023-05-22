@@ -57,8 +57,8 @@ const UpdateItem = () => {
       method: "POST",
       body,
     });
+    // eslint-disable-next-line
     const data = await response.json();
-    console.log(data);
   }
 
   // eslint-disable-next-line
@@ -81,6 +81,7 @@ const UpdateItem = () => {
         method: "DELETE",
       });
 
+      // esling-disable-next-line
       const data = await response.json();
     }
 
