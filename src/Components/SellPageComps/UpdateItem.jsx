@@ -81,7 +81,7 @@ const UpdateItem = () => {
         method: "DELETE",
       });
 
-      // esling-disable-next-line
+      // eslint-disable-next-line
       const data = await response.json();
     }
 
