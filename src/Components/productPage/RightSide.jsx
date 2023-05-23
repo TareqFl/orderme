@@ -282,8 +282,18 @@ const RightSide = ({ data }) => {
             },
           }}
           onClick={() => {
-            dispatch(add_to_cart([data]));
-            dispatch(navigation({ page: "buy", data: null }));
+            const found_product = Cart.find((item) => item.id === data.id);
+            if (found_product) {
+              const all_products = Cart;
+              const get_index = Cart.indexOf(data, 0);
+              all_products[get_index].quantity =
+                all_products[get_index].quantity + 1;
+              dispatch(add_to_cart([...all_products]));
+              return dispatch(navigation({ page: "buy", data: null }));
+            }
+            data.quantity = 1;
+            dispatch(add_to_cart([...Cart, data]));
+            return dispatch(navigation({ page: "buy", data: null }));
           }}
         >
           Buy now

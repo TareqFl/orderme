@@ -6,8 +6,8 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { Container } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { add_to_cart } from "../Actions";
+import { useDispatch, useSelector } from "react-redux";
+import { add_to_cart, navigation } from "../Actions";
 
 export default function CheckoutForm({ clientSecret }) {
   const stripe = useStripe();
@@ -18,7 +18,7 @@ export default function CheckoutForm({ clientSecret }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
-
+  const { Cart } = useSelector((state) => state);
   useEffect(() => {
     if (!stripe) {
       return;
@@ -29,7 +29,7 @@ export default function CheckoutForm({ clientSecret }) {
     // );
 
     if (!clientSecret) {
-      return alert("no client Secret");
+      return;
     }
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
@@ -51,6 +51,13 @@ export default function CheckoutForm({ clientSecret }) {
     });
     //eslint-disable-next-line
   }, [stripe]);
+
+  useEffect(() => {
+    if (!Cart.length) {
+      dispatch(navigation({ page: "home", data: null }));
+    }
+    // eslint-disable-next-line
+  }, [Cart]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
