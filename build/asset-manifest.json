@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/orderme/static/css/main.98ec47ca.css",
-    "main.js": "/orderme/static/js/main.ac59af1e.js",
+    "main.js": "/orderme/static/js/main.9d753186.js",
     "static/media/logo.webp": "/orderme/static/media/logo.8a7b9adc247653bdfcee.webp",
     "index.html": "/orderme/index.html",
     "main.98ec47ca.css.map": "/orderme/static/css/main.98ec47ca.css.map",
-    "main.ac59af1e.js.map": "/orderme/static/js/main.ac59af1e.js.map"
+    "main.9d753186.js.map": "/orderme/static/js/main.9d753186.js.map"
   },
   "entrypoints": [
     "static/css/main.98ec47ca.css",
-    "static/js/main.ac59af1e.js"
+    "static/js/main.9d753186.js"
   ]
 }

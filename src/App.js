@@ -95,7 +95,7 @@ const App = () => {
 
   React.useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("http://127.0.0.1:5000/charge", {
+    fetch(process.env.REACT_APP_DOMAIN_NAME + "/charge", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ items: "username" }),
