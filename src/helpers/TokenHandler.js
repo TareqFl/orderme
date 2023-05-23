@@ -9,7 +9,7 @@ class TokenHandler {
     if (this.local === null && this.session === null) {
       return;
     }
-    const response = await fetch("http://127.0.0.1:5000", {
+    const response = await fetch(process.env.REACT_APP_DOMAIN_NAME + "/auth", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${

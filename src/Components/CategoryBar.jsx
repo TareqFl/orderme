@@ -38,12 +38,12 @@ const CategoryBar = () => {
       }}
     >
       <Container
-        sx={{
-          display: {
-            xs: "none",
-            sm: "block",
-          },
-        }}
+        // sx={{
+        //   display: {
+        //     xs: "none",
+        //     sm: "block",
+        //   },
+        // }}
         maxWidth="off"
       >
         <Box
@@ -67,12 +67,25 @@ const CategoryBar = () => {
             }}
           >
             <List />
-            <Typography>Categories</Typography>
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "0.8rem",
+                  sm: "1rem",
+                },
+              }}
+            >
+              Categories
+            </Typography>
             {/* <CustomButton icon={<KeyboardArrowDown />} /> */}
             <MyButton
               icon={
                 <KeyboardArrowDown
                   sx={{
+                    fontSize: {
+                      xs: "1rem",
+                      sm: "1.5rem",
+                    },
                     transform: category && "rotate(180deg)",
                     transition: ".5s",
                   }}
@@ -142,7 +155,13 @@ const CategoryBar = () => {
           <Divider orientation="vertical" flexItem />
           <Button
             variant="text"
-            sx={{ color: "black" }}
+            sx={{
+              color: "black",
+              fontSize: {
+                xs: "0.7rem",
+                sm: "0.8rem",
+              },
+            }}
             onClick={() => {
               if (!auth) return dispatch(open_modal(true));
               return dispatch(navigation({ page: "sell", data: null }));
@@ -150,12 +169,31 @@ const CategoryBar = () => {
           >
             Sell on orderme
           </Button>
-          <Button variant="text" sx={{ color: "black" }}>
+          <Button
+            variant="text"
+            sx={{
+              color: "black",
+              display: {
+                xs: "none",
+                sm: "flex",
+              },
+              fontSize: {
+                xs: "0.7rem",
+                sm: "0.8rem",
+              },
+            }}
+          >
             Help
           </Button>
           <Button
             variant="text"
-            sx={{ color: "black" }}
+            sx={{
+              color: "black",
+              fontSize: {
+                xs: "0.7rem",
+                sm: "0.8rem",
+              },
+            }}
             onClick={() => {
               dispatch(open_Buyer_pro(true));
             }}

@@ -1,9 +1,7 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
 import {
   AppBar,
   IconButton,
-  InputBase,
   Toolbar,
   Typography,
   Box,
@@ -12,57 +10,20 @@ import {
   Avatar,
   Button,
 } from "@mui/material";
-import { Search as SearchIcon, Menu, ShoppingCart } from "@mui/icons-material";
+import {
+  ShoppingCart,
+  Logout as LogoutIcon,
+  Login as LoginIcon,
+} from "@mui/icons-material";
 import logo from "../Assets/logo.webp";
 import CustomMenu from "./Menu_custom";
 import { useDispatch, useSelector } from "react-redux";
-import { authentication, handle_drawer } from "../Actions";
+import { authentication } from "../Actions";
 import CustomButton from "./ButtonCustom";
 import CategoryBar from "./CategoryBar";
 import { navigation, open_modal } from "../Actions";
 import { checkout } from "../Actions";
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.black, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.black, 0.25),
-  },
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
-  flexGrow: 0.5,
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "36ch",
-      },
-    },
-  },
-}));
+import CustomSearch from "./CustomSearch";
 
 export default function SearchAppBar({ sx }) {
   const dispatch = useDispatch();
@@ -136,15 +97,7 @@ export default function SearchAppBar({ sx }) {
               ORDERME
             </Typography>
           </Stack>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+          <CustomSearch />
           {/* Options & Account */}
           <Stack
             flexDirection={"row"}
@@ -161,53 +114,39 @@ export default function SearchAppBar({ sx }) {
             />
 
             {/* End of other options */}
-            <IconButton
-              sx={{
-                display: {
-                  xs: "flex",
-                  sm: "none",
-                },
-              }}
-              onClick={() => dispatch(handle_drawer())}
-            >
-              <Menu fontSize="large" />
-            </IconButton>
 
             <Divider
               orientation="vertical"
               flexItem
-              sx={{
-                display: {
-                  xs: "none",
-                  sm: "block",
-                },
-              }}
+              sx={
+                {
+                  // display: {
+                  //   xs: "none",
+                  //   sm: "block",
+                  // },
+                }
+              }
             />
             <Typography
               sx={{
-                display: {
-                  xs: "none",
-                  sm: "block",
-                },
+                // display: {
+                //   xs: "none",
+                //   sm: "block",
+                // },
                 fontWeight: "bold",
               }}
             >
-              {auth ? username : "Guest"}
+              {auth ? username.substring(0, 5) : "Guest"}
             </Typography>
-            {/* <IconButton
+
+            <Button
+              variant="contained"
+              color="orange_"
               sx={{
                 display: {
                   xs: "none",
                   sm: "flex",
                 },
-              }}
-            >
-              <Avatar src={image ? image : ""} />
-            </IconButton> */}
-            <Button
-              variant="contained"
-              color="orange_"
-              sx={{
                 letterSpacing: {
                   xs: "0.5",
                   sm: 2,
@@ -218,6 +157,19 @@ export default function SearchAppBar({ sx }) {
             >
               {auth ? "Logout" : "login"}
             </Button>
+            <IconButton
+              variant="contained"
+              color="orange_"
+              sx={{
+                display: {
+                  xs: "flex",
+                  sm: "none",
+                },
+              }}
+              onClick={handleAuthentication}
+            >
+              {auth ? <LogoutIcon /> : <LoginIcon />}
+            </IconButton>
           </Stack>
         </Toolbar>
       </AppBar>

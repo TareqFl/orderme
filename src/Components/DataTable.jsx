@@ -1,11 +1,43 @@
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { Box, IconButton, Paper, Stack, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { view_item } from "../Actions";
+import {
+  show_store_products,
+  toaster_error,
+  toaster_success,
+  view_item,
+} from "../Actions";
+import { RemoveCircle, Visibility } from "@mui/icons-material";
+import { getStoreProduct } from "../helpers/getStoreProducts";
 
 const DataTable = ({ rows }) => {
   const dispatch = useDispatch();
+
+  // handler
+  async function handleDelete(value) {
+    const response = await fetch(
+      process.env.REACT_APP_DOMAIN_NAME + "/delete",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(value),
+      }
+    );
+    const data = await response.json();
+    const { msg } = data;
+    if (msg) {
+      dispatch(toaster_success("Item succussfully deleted"));
+      return getStoreProduct().then((data) =>
+        dispatch(show_store_products(data.products))
+      );
+    }
+    return dispatch(toaster_error("something went wrong please try again"));
+  }
+
+  // end of handler
 
   const columns = [
     { field: "id", headerName: "ID", width: 50 },
@@ -23,13 +55,22 @@ const DataTable = ({ rows }) => {
       field: "thumbnail",
       headerName: "Thumbnail",
       description: "This is the main display of the product",
-      width: 90,
+      width: 120,
       sortable: false,
       renderCell: (params) => {
         const image = params.row.thumbnail;
 
         return (
-          <Paper sx={{ width: "100%", img: { width: "100%" } }}>
+          <Paper
+            elevation={0}
+            sx={{
+              width: 100,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              img: { width: "50%" },
+            }}
+          >
             <img src={image} alt={params.row.id} />
           </Paper>
         );
@@ -48,13 +89,13 @@ const DataTable = ({ rows }) => {
       description: "click on button to view and edit",
       sortable: false,
       filter: false,
-      width: "100%",
+
       renderCell: (params) => {
         return (
-          <Stack direction="row" gap={2} width="100%">
-            <Button
+          <Stack direction="row" width="100%">
+            <IconButton
               variant="contained"
-              color="black_"
+              color="warning"
               fullWidth
               onClick={() => {
                 const { row } = params;
@@ -70,10 +111,17 @@ const DataTable = ({ rows }) => {
                 // } = row;
                 return dispatch(view_item({ ...row }));
               }}
-              sx={{ color: "white" }}
             >
-              View/Edit
-            </Button>
+              <Visibility fontSize="small" />
+            </IconButton>
+            <IconButton
+              variant="contained"
+              color="black_"
+              fullWidth
+              onClick={() => handleDelete(params.row)}
+            >
+              <RemoveCircle fontSize="small" />
+            </IconButton>
           </Stack>
         );
       },

@@ -95,8 +95,10 @@ const RightSide = ({ data }) => {
             fontWeight: "bold",
             fontSize: {
               xs: "0.4rem",
-              sm: "1rem",
+              sm: "0.8rem",
+              md: "1rem",
             },
+            textAlign: "center",
           }}
         >
           {text}
@@ -170,7 +172,7 @@ const RightSide = ({ data }) => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: {
-            xs: "center",
+            xs: "space-between",
             sm: "start",
           },
           gap: {
@@ -266,16 +268,7 @@ const RightSide = ({ data }) => {
         >
           ${data.price}
         </Typography>
-        {/* <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: {
-              xs: 0.5,
-              sm: 1,
-            },
-          }}
-        > */}
+
         <Button
           variant="contained"
           color="red_"
