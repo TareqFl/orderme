@@ -10,10 +10,16 @@ import {
 import React from "react";
 import { cats } from "../../fakeData";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  show_store_products,
+  toaster_error,
+  toaster_success,
+} from "../../Actions";
+import { getStoreProduct } from "../../helpers/getStoreProducts";
 
 const UpdateItem = () => {
   const [values, setValues] = React.useState({
-    id: 1,
+    id: "",
     title: "",
     brand: "",
     price: "",
@@ -57,8 +63,36 @@ const UpdateItem = () => {
       method: "POST",
       body,
     });
-    // eslint-disable-next-line
-    const data = await response.json();
+
+    if (
+      (title === "") === "" ||
+      brand === "" ||
+      price === "" ||
+      description === "" ||
+      category === "" ||
+      thumbnail === "" ||
+      images.length === 0
+    ) {
+      return dispatch(toaster_error("No empty fields"));
+    }
+    if (response.status === 200) {
+      setValues((prev) => {
+        return {
+          id: "",
+          title: "",
+          brand: "",
+          price: "",
+          description: "",
+          category: "",
+          thumbnail: "",
+          images: [],
+        };
+      });
+      dispatch(toaster_success("Item updated"));
+      return getStoreProduct().then((data) =>
+        dispatch(show_store_products(data.products))
+      );
+    }
   }
 
   // eslint-disable-next-line

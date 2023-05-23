@@ -130,10 +130,6 @@ const DataTable = ({ rows }) => {
   return (
     <Box
       sx={{
-        display: {
-          xs: "none",
-          sm: "block",
-        },
         height: 400,
         width: "100%",
       }}

@@ -118,7 +118,7 @@ const App = () => {
     <>
       <ThemeProvider theme={customTheme}>
         <Toaster>
-          <Box>
+          <Box sx={{ overflow: "hidden" }}>
             <CssBaseline />
             <NavBar />
             <Flash />
