@@ -7,7 +7,12 @@ import {
 } from "@stripe/react-stripe-js";
 import { Container } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { add_to_cart, navigation } from "../Actions";
+import {
+  add_to_cart,
+  navigation,
+  toaster_error,
+  toaster_toaster,
+} from "../Actions";
 
 export default function CheckoutForm({ clientSecret }) {
   const stripe = useStripe();
@@ -65,7 +70,7 @@ export default function CheckoutForm({ clientSecret }) {
     if (!stripe || !elements) {
       // Stripe.js hasn't yet loaded.
       // Make sure to disable form submission until Stripe.js has loaded.
-      alert("error");
+      dispatch(toaster_error("error"));
       return;
     }
 
@@ -86,9 +91,9 @@ export default function CheckoutForm({ clientSecret }) {
     // redirected to the `return_url`.
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
-      alert("error alert");
+      dispatch(toaster_error("Card Error"));
     } else {
-      alert("soemthing unexpected happened");
+      dispatch(toaster_error("soemthing unexpected happened"));
       setMessage("An unexpected error occurred.");
     }
 
@@ -110,9 +115,10 @@ export default function CheckoutForm({ clientSecret }) {
           id="payment-element"
           options={paymentElementOptions}
           onReady={() =>
-            alert(
-              "type Card 4242 4242 4242 4242 and any date and cvc to continue"
-            )
+            // alert(
+            //   "type Card 4242 4242 4242 4242 and any date and cvc to continue"
+            // )
+            dispatch(toaster_toaster("use Card 4242 4242 4242 4242 "))
           }
         />
         <button disabled={isLoading || !stripe || !elements} id="submit">
