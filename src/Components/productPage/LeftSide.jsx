@@ -22,7 +22,7 @@ const LeftSide = ({ data }) => {
     >
       {/* Main Dp */}
       <Paper
-        elevation={3}
+        elevation={2}
         sx={{
           mb: 2,
           width: {
@@ -34,7 +34,7 @@ const LeftSide = ({ data }) => {
             xs: "150px",
             sm: "200px",
             md: "325px",
-            lg: "300px",
+            lg: "600px",
           },
           img: {
             width: "100%",
